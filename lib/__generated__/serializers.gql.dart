@@ -9,8 +9,6 @@ import 'package:gql_code_builder_serializers/gql_code_builder_serializers.dart'
     show OperationSerializer;
 import 'package:testbor/__generated__/schema.schema.gql.dart'
     show
-        GBigDecimal,
-        GBigInteger,
         GDate,
         GDateTime,
         GGender,
@@ -60,8 +58,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GAnonymousTokenData_anonymousToken,
   GAnonymousTokenReq,
   GAnonymousTokenVars,
-  GBigDecimal,
-  GBigInteger,
   GDate,
   GDateTime,
   GGender,

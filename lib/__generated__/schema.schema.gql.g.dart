@@ -514,12 +514,7 @@ class _$GJurisdictionInputSerializer
     if (value != null) {
       result
         ..add('parentId')
-        ..add(
-          serializers.serialize(
-            value,
-            specifiedType: const FullType(GBigInteger),
-          ),
-        );
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     return result;
   }
@@ -555,13 +550,9 @@ class _$GJurisdictionInputSerializer
                   as String;
           break;
         case 'parentId':
-          result.parentId.replace(
-            serializers.deserialize(
-                  value,
-                  specifiedType: const FullType(GBigInteger),
-                )!
-                as GBigInteger,
-          );
+          result.parentId =
+              serializers.deserialize(value, specifiedType: const FullType(int))
+                  as int?;
           break;
       }
     }
@@ -731,7 +722,7 @@ class _$GSchoolInputSerializer implements StructuredSerializer<GSchoolInput> {
       'jurisdictionId',
       serializers.serialize(
         object.jurisdictionId,
-        specifiedType: const FullType(GBigInteger),
+        specifiedType: const FullType(int),
       ),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
@@ -755,13 +746,12 @@ class _$GSchoolInputSerializer implements StructuredSerializer<GSchoolInput> {
       final Object? value = iterator.current;
       switch (key) {
         case 'jurisdictionId':
-          result.jurisdictionId.replace(
-            serializers.deserialize(
-                  value,
-                  specifiedType: const FullType(GBigInteger),
-                )!
-                as GBigInteger,
-          );
+          result.jurisdictionId =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )!
+                  as int;
           break;
         case 'name':
           result.name =
@@ -1260,12 +1250,7 @@ class _$GUserInputSerializer implements StructuredSerializer<GUserInput> {
     if (value != null) {
       result
         ..add('jurisdictionId')
-        ..add(
-          serializers.serialize(
-            value,
-            specifiedType: const FullType(GBigInteger),
-          ),
-        );
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     value = object.parentPhone;
     if (value != null) {
@@ -1287,12 +1272,7 @@ class _$GUserInputSerializer implements StructuredSerializer<GUserInput> {
     if (value != null) {
       result
         ..add('schoolId')
-        ..add(
-          serializers.serialize(
-            value,
-            specifiedType: const FullType(GBigInteger),
-          ),
-        );
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     value = object.username;
     if (value != null) {
@@ -1366,13 +1346,9 @@ class _$GUserInputSerializer implements StructuredSerializer<GUserInput> {
                   as String?;
           break;
         case 'jurisdictionId':
-          result.jurisdictionId.replace(
-            serializers.deserialize(
-                  value,
-                  specifiedType: const FullType(GBigInteger),
-                )!
-                as GBigInteger,
-          );
+          result.jurisdictionId =
+              serializers.deserialize(value, specifiedType: const FullType(int))
+                  as int?;
           break;
         case 'lastName':
           result.lastName =
@@ -1399,13 +1375,9 @@ class _$GUserInputSerializer implements StructuredSerializer<GUserInput> {
                   as String?;
           break;
         case 'schoolId':
-          result.schoolId.replace(
-            serializers.deserialize(
-                  value,
-                  specifiedType: const FullType(GBigInteger),
-                )!
-                as GBigInteger,
-          );
+          result.schoolId =
+              serializers.deserialize(value, specifiedType: const FullType(int))
+                  as int?;
           break;
         case 'username':
           result.username =
@@ -1506,172 +1478,6 @@ class _$GUserQueryInputSerializer
     }
 
     return result.build();
-  }
-}
-
-class _$GBigDecimal extends GBigDecimal {
-  @override
-  final String value;
-
-  factory _$GBigDecimal([void Function(GBigDecimalBuilder)? updates]) =>
-      (GBigDecimalBuilder()..update(updates))._build();
-
-  _$GBigDecimal._({required this.value}) : super._();
-  @override
-  GBigDecimal rebuild(void Function(GBigDecimalBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GBigDecimalBuilder toBuilder() => GBigDecimalBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GBigDecimal && value == other.value;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, value.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-      r'GBigDecimal',
-    )..add('value', value)).toString();
-  }
-}
-
-class GBigDecimalBuilder implements Builder<GBigDecimal, GBigDecimalBuilder> {
-  _$GBigDecimal? _$v;
-
-  String? _value;
-  String? get value => _$this._value;
-  set value(String? value) => _$this._value = value;
-
-  GBigDecimalBuilder();
-
-  GBigDecimalBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _value = $v.value;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GBigDecimal other) {
-    _$v = other as _$GBigDecimal;
-  }
-
-  @override
-  void update(void Function(GBigDecimalBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GBigDecimal build() => _build();
-
-  _$GBigDecimal _build() {
-    final _$result =
-        _$v ??
-        _$GBigDecimal._(
-          value: BuiltValueNullFieldError.checkNotNull(
-            value,
-            r'GBigDecimal',
-            'value',
-          ),
-        );
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GBigInteger extends GBigInteger {
-  @override
-  final String value;
-
-  factory _$GBigInteger([void Function(GBigIntegerBuilder)? updates]) =>
-      (GBigIntegerBuilder()..update(updates))._build();
-
-  _$GBigInteger._({required this.value}) : super._();
-  @override
-  GBigInteger rebuild(void Function(GBigIntegerBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GBigIntegerBuilder toBuilder() => GBigIntegerBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GBigInteger && value == other.value;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, value.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-      r'GBigInteger',
-    )..add('value', value)).toString();
-  }
-}
-
-class GBigIntegerBuilder implements Builder<GBigInteger, GBigIntegerBuilder> {
-  _$GBigInteger? _$v;
-
-  String? _value;
-  String? get value => _$this._value;
-  set value(String? value) => _$this._value = value;
-
-  GBigIntegerBuilder();
-
-  GBigIntegerBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _value = $v.value;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GBigInteger other) {
-    _$v = other as _$GBigInteger;
-  }
-
-  @override
-  void update(void Function(GBigIntegerBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GBigInteger build() => _build();
-
-  _$GBigInteger _build() {
-    final _$result =
-        _$v ??
-        _$GBigInteger._(
-          value: BuiltValueNullFieldError.checkNotNull(
-            value,
-            r'GBigInteger',
-            'value',
-          ),
-        );
-    replace(_$result);
-    return _$result;
   }
 }
 
@@ -1847,7 +1653,7 @@ class _$GJurisdictionInput extends GJurisdictionInput {
   @override
   final String name;
   @override
-  final GBigInteger? parentId;
+  final int? parentId;
 
   factory _$GJurisdictionInput([
     void Function(GJurisdictionInputBuilder)? updates,
@@ -1908,9 +1714,9 @@ class GJurisdictionInputBuilder
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  GBigIntegerBuilder? _parentId;
-  GBigIntegerBuilder get parentId => _$this._parentId ??= GBigIntegerBuilder();
-  set parentId(GBigIntegerBuilder? parentId) => _$this._parentId = parentId;
+  int? _parentId;
+  int? get parentId => _$this._parentId;
+  set parentId(int? parentId) => _$this._parentId = parentId;
 
   GJurisdictionInputBuilder();
 
@@ -1919,7 +1725,7 @@ class GJurisdictionInputBuilder
     if ($v != null) {
       _countryCode = $v.countryCode;
       _name = $v.name;
-      _parentId = $v.parentId?.toBuilder();
+      _parentId = $v.parentId;
       _$v = null;
     }
     return this;
@@ -1939,37 +1745,21 @@ class GJurisdictionInputBuilder
   GJurisdictionInput build() => _build();
 
   _$GJurisdictionInput _build() {
-    _$GJurisdictionInput _$result;
-    try {
-      _$result =
-          _$v ??
-          _$GJurisdictionInput._(
-            countryCode: BuiltValueNullFieldError.checkNotNull(
-              countryCode,
-              r'GJurisdictionInput',
-              'countryCode',
-            ),
-            name: BuiltValueNullFieldError.checkNotNull(
-              name,
-              r'GJurisdictionInput',
-              'name',
-            ),
-            parentId: _parentId?.build(),
-          );
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'parentId';
-        _parentId?.build();
-      } catch (e) {
-        throw BuiltValueNestedFieldError(
-          r'GJurisdictionInput',
-          _$failedField,
-          e.toString(),
+    final _$result =
+        _$v ??
+        _$GJurisdictionInput._(
+          countryCode: BuiltValueNullFieldError.checkNotNull(
+            countryCode,
+            r'GJurisdictionInput',
+            'countryCode',
+          ),
+          name: BuiltValueNullFieldError.checkNotNull(
+            name,
+            r'GJurisdictionInput',
+            'name',
+          ),
+          parentId: parentId,
         );
-      }
-      rethrow;
-    }
     replace(_$result);
     return _$result;
   }
@@ -2084,7 +1874,7 @@ class GMultiLangInputBuilder
 
 class _$GSchoolInput extends GSchoolInput {
   @override
-  final GBigInteger jurisdictionId;
+  final int jurisdictionId;
   @override
   final String name;
 
@@ -2130,10 +1920,9 @@ class GSchoolInputBuilder
     implements Builder<GSchoolInput, GSchoolInputBuilder> {
   _$GSchoolInput? _$v;
 
-  GBigIntegerBuilder? _jurisdictionId;
-  GBigIntegerBuilder get jurisdictionId =>
-      _$this._jurisdictionId ??= GBigIntegerBuilder();
-  set jurisdictionId(GBigIntegerBuilder? jurisdictionId) =>
+  int? _jurisdictionId;
+  int? get jurisdictionId => _$this._jurisdictionId;
+  set jurisdictionId(int? jurisdictionId) =>
       _$this._jurisdictionId = jurisdictionId;
 
   String? _name;
@@ -2145,7 +1934,7 @@ class GSchoolInputBuilder
   GSchoolInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _jurisdictionId = $v.jurisdictionId.toBuilder();
+      _jurisdictionId = $v.jurisdictionId;
       _name = $v.name;
       _$v = null;
     }
@@ -2166,32 +1955,20 @@ class GSchoolInputBuilder
   GSchoolInput build() => _build();
 
   _$GSchoolInput _build() {
-    _$GSchoolInput _$result;
-    try {
-      _$result =
-          _$v ??
-          _$GSchoolInput._(
-            jurisdictionId: jurisdictionId.build(),
-            name: BuiltValueNullFieldError.checkNotNull(
-              name,
-              r'GSchoolInput',
-              'name',
-            ),
-          );
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'jurisdictionId';
-        jurisdictionId.build();
-      } catch (e) {
-        throw BuiltValueNestedFieldError(
-          r'GSchoolInput',
-          _$failedField,
-          e.toString(),
+    final _$result =
+        _$v ??
+        _$GSchoolInput._(
+          jurisdictionId: BuiltValueNullFieldError.checkNotNull(
+            jurisdictionId,
+            r'GSchoolInput',
+            'jurisdictionId',
+          ),
+          name: BuiltValueNullFieldError.checkNotNull(
+            name,
+            r'GSchoolInput',
+            'name',
+          ),
         );
-      }
-      rethrow;
-    }
     replace(_$result);
     return _$result;
   }
@@ -2765,7 +2542,7 @@ class _$GUserInput extends GUserInput {
   @override
   final String? imageUrl;
   @override
-  final GBigInteger? jurisdictionId;
+  final int? jurisdictionId;
   @override
   final String lastName;
   @override
@@ -2773,7 +2550,7 @@ class _$GUserInput extends GUserInput {
   @override
   final String? patronymic;
   @override
-  final GBigInteger? schoolId;
+  final int? schoolId;
   @override
   final String? username;
 
@@ -2884,10 +2661,9 @@ class GUserInputBuilder implements Builder<GUserInput, GUserInputBuilder> {
   String? get imageUrl => _$this._imageUrl;
   set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
 
-  GBigIntegerBuilder? _jurisdictionId;
-  GBigIntegerBuilder get jurisdictionId =>
-      _$this._jurisdictionId ??= GBigIntegerBuilder();
-  set jurisdictionId(GBigIntegerBuilder? jurisdictionId) =>
+  int? _jurisdictionId;
+  int? get jurisdictionId => _$this._jurisdictionId;
+  set jurisdictionId(int? jurisdictionId) =>
       _$this._jurisdictionId = jurisdictionId;
 
   String? _lastName;
@@ -2902,9 +2678,9 @@ class GUserInputBuilder implements Builder<GUserInput, GUserInputBuilder> {
   String? get patronymic => _$this._patronymic;
   set patronymic(String? patronymic) => _$this._patronymic = patronymic;
 
-  GBigIntegerBuilder? _schoolId;
-  GBigIntegerBuilder get schoolId => _$this._schoolId ??= GBigIntegerBuilder();
-  set schoolId(GBigIntegerBuilder? schoolId) => _$this._schoolId = schoolId;
+  int? _schoolId;
+  int? get schoolId => _$this._schoolId;
+  set schoolId(int? schoolId) => _$this._schoolId = schoolId;
 
   String? _username;
   String? get username => _$this._username;
@@ -2921,11 +2697,11 @@ class GUserInputBuilder implements Builder<GUserInput, GUserInputBuilder> {
       _gender = $v.gender;
       _grade = $v.grade;
       _imageUrl = $v.imageUrl;
-      _jurisdictionId = $v.jurisdictionId?.toBuilder();
+      _jurisdictionId = $v.jurisdictionId;
       _lastName = $v.lastName;
       _parentPhone = $v.parentPhone;
       _patronymic = $v.patronymic;
-      _schoolId = $v.schoolId?.toBuilder();
+      _schoolId = $v.schoolId;
       _username = $v.username;
       _$v = null;
     }
@@ -2961,7 +2737,7 @@ class GUserInputBuilder implements Builder<GUserInput, GUserInputBuilder> {
             gender: gender,
             grade: grade,
             imageUrl: imageUrl,
-            jurisdictionId: _jurisdictionId?.build(),
+            jurisdictionId: jurisdictionId,
             lastName: BuiltValueNullFieldError.checkNotNull(
               lastName,
               r'GUserInput',
@@ -2969,7 +2745,7 @@ class GUserInputBuilder implements Builder<GUserInput, GUserInputBuilder> {
             ),
             parentPhone: parentPhone,
             patronymic: patronymic,
-            schoolId: _schoolId?.build(),
+            schoolId: schoolId,
             username: username,
           );
     } catch (_) {
@@ -2977,12 +2753,6 @@ class GUserInputBuilder implements Builder<GUserInput, GUserInputBuilder> {
       try {
         _$failedField = 'birthDate';
         _birthDate?.build();
-
-        _$failedField = 'jurisdictionId';
-        _jurisdictionId?.build();
-
-        _$failedField = 'schoolId';
-        _schoolId?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
           r'GUserInput',

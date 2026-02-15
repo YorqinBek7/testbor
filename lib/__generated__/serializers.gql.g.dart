@@ -13,8 +13,6 @@ Serializers _$serializers =
           ..add(GAnonymousTokenData_anonymousToken.serializer)
           ..add(GAnonymousTokenReq.serializer)
           ..add(GAnonymousTokenVars.serializer)
-          ..add(GBigDecimal.serializer)
-          ..add(GBigInteger.serializer)
           ..add(GDate.serializer)
           ..add(GDateTime.serializer)
           ..add(GGender.serializer)

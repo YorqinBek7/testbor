@@ -5,6 +5,11 @@ targets:
         enabled: true
         options:
           schema: testbor|lib/schema.graphql
+          type_overrides:
+            BigInteger:
+              name: int
+            BigDecimal:
+              name: double
       ferry_generator|serializer_builder:
         enabled: true
         options:

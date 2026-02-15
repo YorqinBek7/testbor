@@ -11,32 +11,6 @@ import 'package:testbor/__generated__/serializers.gql.dart' as _i2;
 
 part 'schema.schema.gql.g.dart';
 
-abstract class GBigDecimal implements Built<GBigDecimal, GBigDecimalBuilder> {
-  GBigDecimal._();
-
-  factory GBigDecimal([String? value]) =>
-      _$GBigDecimal((b) => value != null ? (b..value = value) : b);
-
-  String get value;
-  @BuiltValueSerializer(custom: true)
-  static Serializer<GBigDecimal> get serializer =>
-      _i1.DefaultScalarSerializer<GBigDecimal>(
-          (Object serialized) => GBigDecimal((serialized as String?)));
-}
-
-abstract class GBigInteger implements Built<GBigInteger, GBigIntegerBuilder> {
-  GBigInteger._();
-
-  factory GBigInteger([String? value]) =>
-      _$GBigInteger((b) => value != null ? (b..value = value) : b);
-
-  String get value;
-  @BuiltValueSerializer(custom: true)
-  static Serializer<GBigInteger> get serializer =>
-      _i1.DefaultScalarSerializer<GBigInteger>(
-          (Object serialized) => GBigInteger((serialized as String?)));
-}
-
 abstract class GDate implements Built<GDate, GDateBuilder> {
   GDate._();
 
@@ -86,7 +60,7 @@ abstract class GJurisdictionInput
 
   String get countryCode;
   String get name;
-  GBigInteger? get parentId;
+  int? get parentId;
   static Serializer<GJurisdictionInput> get serializer =>
       _$gJurisdictionInputSerializer;
 
@@ -312,7 +286,7 @@ abstract class GSchoolInput
   factory GSchoolInput([void Function(GSchoolInputBuilder b) updates]) =
       _$GSchoolInput;
 
-  GBigInteger get jurisdictionId;
+  int get jurisdictionId;
   String get name;
   static Serializer<GSchoolInput> get serializer => _$gSchoolInputSerializer;
 
@@ -428,11 +402,11 @@ abstract class GUserInput implements Built<GUserInput, GUserInputBuilder> {
   GGender? get gender;
   int? get grade;
   String? get imageUrl;
-  GBigInteger? get jurisdictionId;
+  int? get jurisdictionId;
   String get lastName;
   String? get parentPhone;
   String? get patronymic;
-  GBigInteger? get schoolId;
+  int? get schoolId;
   String? get username;
   static Serializer<GUserInput> get serializer => _$gUserInputSerializer;
 

@@ -99,10 +99,7 @@ class _$GProfileData_profileSerializer
         specifiedType: const FullType(String),
       ),
       'id',
-      serializers.serialize(
-        object.id,
-        specifiedType: const FullType(_i2.GBigInteger),
-      ),
+      serializers.serialize(object.id, specifiedType: const FullType(int)),
       'language',
       serializers.serialize(
         object.language,
@@ -263,13 +260,12 @@ class _$GProfileData_profileSerializer
                   as _i2.GGender?;
           break;
         case 'id':
-          result.id.replace(
-            serializers.deserialize(
-                  value,
-                  specifiedType: const FullType(_i2.GBigInteger),
-                )!
-                as _i2.GBigInteger,
-          );
+          result.id =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )!
+                  as int;
           break;
         case 'imageUrl':
           result.imageUrl =
@@ -457,7 +453,7 @@ class _$GProfileData_profile extends GProfileData_profile {
   @override
   final _i2.GGender? gender;
   @override
-  final _i2.GBigInteger id;
+  final int id;
   @override
   final String? imageUrl;
   @override
@@ -586,9 +582,9 @@ class GProfileData_profileBuilder
   _i2.GGender? get gender => _$this._gender;
   set gender(_i2.GGender? gender) => _$this._gender = gender;
 
-  _i2.GBigIntegerBuilder? _id;
-  _i2.GBigIntegerBuilder get id => _$this._id ??= _i2.GBigIntegerBuilder();
-  set id(_i2.GBigIntegerBuilder? id) => _$this._id = id;
+  int? _id;
+  int? get id => _$this._id;
+  set id(int? id) => _$this._id = id;
 
   String? _imageUrl;
   String? get imageUrl => _$this._imageUrl;
@@ -627,7 +623,7 @@ class GProfileData_profileBuilder
       _email = $v.email;
       _firstName = $v.firstName;
       _gender = $v.gender;
-      _id = $v.id.toBuilder();
+      _id = $v.id;
       _imageUrl = $v.imageUrl;
       _language = $v.language;
       _lastName = $v.lastName;
@@ -668,7 +664,11 @@ class GProfileData_profileBuilder
             email: email,
             firstName: firstName,
             gender: gender,
-            id: id.build(),
+            id: BuiltValueNullFieldError.checkNotNull(
+              id,
+              r'GProfileData_profile',
+              'id',
+            ),
             imageUrl: imageUrl,
             language: BuiltValueNullFieldError.checkNotNull(
               language,
@@ -685,9 +685,6 @@ class GProfileData_profileBuilder
       try {
         _$failedField = 'birthDate';
         _birthDate?.build();
-
-        _$failedField = 'id';
-        id.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
           r'GProfileData_profile',

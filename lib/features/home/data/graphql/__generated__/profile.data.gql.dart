@@ -54,7 +54,7 @@ abstract class GProfileData_profile
   String? get email;
   String? get firstName;
   _i2.GGender? get gender;
-  _i2.GBigInteger get id;
+  int get id;
   String? get imageUrl;
   _i2.GLanguage get language;
   String? get lastName;
