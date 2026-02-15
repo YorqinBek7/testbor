@@ -21,7 +21,8 @@ class HomePage extends StatelessWidget {
           builder: (context, state) {
             return state.when(
               initial: () => const SizedBox(),
-              loading: () => const Center(child: CircularProgressIndicator()),
+              loading: () =>
+                  const Center(child: CircularProgressIndicator.adaptive()),
               failure: (error) => Center(child: Text(error)),
               success: (profile) => ListView(
                 padding: const EdgeInsets.all(16),
