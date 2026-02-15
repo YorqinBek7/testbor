@@ -13,7 +13,10 @@ class HomePage extends StatelessWidget {
     return BlocProvider(
       create: (context) => sl<ProfileBloc>()..add(const ProfileEvent.fetch()),
       child: Scaffold(
-        appBar: AppBar(title: const Text('Profile')),
+        appBar: AppBar(
+          title: const Text('Profile'),
+          automaticallyImplyLeading: false,
+        ),
         body: BlocBuilder<ProfileBloc, ProfileState>(
           builder: (context, state) {
             return state.when(

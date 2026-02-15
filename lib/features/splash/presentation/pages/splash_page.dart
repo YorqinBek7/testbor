@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:testbor/core/color/colors.dart';
 import 'package:testbor/core/route/router.dart';
 import 'package:testbor/core/style/text_style.dart';
@@ -15,6 +16,19 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  @override
+  void initState() {
+    super.initState();
+    checkInternet();
+  }
+
+  Future<void> checkInternet() async {
+    final hasConnection = await InternetConnection().hasInternetAccess;
+    if (!hasConnection && mounted) {
+      context.pushReplacement(AppRouter.noInternet);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

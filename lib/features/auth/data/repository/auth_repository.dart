@@ -12,22 +12,25 @@ class AuthRepository {
   AuthRepository(this.client, this.storage);
 
   Future<Either<String, bool>> getAnonymousToken() async {
-    final savedAccessToken = await storage.read(key: 'token_access');
     final token = await storage.read(key: 'token');
-
-    if (savedAccessToken != null && token != null) {
+    if (token != null) {
       return Right(true);
     }
-    final response = await client.request(GAnonymousTokenReq()).first;
 
+    final savedAccessToken = await storage.read(key: 'token_access');
+    if (savedAccessToken != null) {
+      return Right(false);
+    }
+
+    final response = await client.request(GAnonymousTokenReq()).first;
     if (response.hasErrors) {
       return Left(response.graphqlErrors?.first.message ?? 'Error');
     }
     final data = response.data!;
-    final accessToken = data.anonymousToken.token;
-    final refreshToken = data.anonymousToken.refreshToken;
-    await storage.write(key: 'token_access', value: accessToken);
-    await storage.write(key: 'refresh_token_access', value: refreshToken);
+    await storage.write(key: 'token_access', value: data.anonymousToken.token);
+    await storage.write(
+        key: 'refresh_token_access',
+        value: data.anonymousToken.refreshToken);
 
     return Right(false);
   }
