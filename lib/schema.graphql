@@ -323,6 +323,23 @@ type Query {
   otp: OtpQuery
   redis: RedisQuery
   jurisdictions: JurisdictionsQuery
+  profile: ProfileResponse!
+}
+
+type ProfileResponse {
+  addressLine: String
+  """ISO-8601"""
+  birthDate: Date
+  email: String
+  firstName: String
+  gender: Gender
+  id: BigInteger!
+  imageUrl: String
+  language: Language!
+  lastName: String
+  patronymic: String
+  phone: String
+  username: String
 }
 
 type RedisQuery {

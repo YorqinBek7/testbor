@@ -43,6 +43,12 @@ import 'package:testbor/features/auth/data/graphql/__generated__/otp.req.gql.dar
     show GOtpReq;
 import 'package:testbor/features/auth/data/graphql/__generated__/otp.var.gql.dart'
     show GOtpVars;
+import 'package:testbor/features/home/data/graphql/__generated__/profile.data.gql.dart'
+    show GProfileData, GProfileData_profile;
+import 'package:testbor/features/home/data/graphql/__generated__/profile.req.gql.dart'
+    show GProfileReq;
+import 'package:testbor/features/home/data/graphql/__generated__/profile.var.gql.dart'
+    show GProfileVars;
 
 part 'serializers.gql.g.dart';
 
@@ -71,6 +77,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GOtpReq,
   GOtpVars,
   GPermission,
+  GProfileData,
+  GProfileData_profile,
+  GProfileReq,
+  GProfileVars,
   GSchoolInput,
   GTenantInfoInput,
   GTenantPrivacyInput,

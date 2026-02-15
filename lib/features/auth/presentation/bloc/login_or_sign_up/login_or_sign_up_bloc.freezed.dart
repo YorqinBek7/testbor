@@ -113,10 +113,7 @@ return started(_that);case _:
 final _that = this;
 switch (_that) {
 case _Started():
-return started(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return started(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -175,10 +172,7 @@ return started(_that.phone,_that.pinCode);case _:
 @optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String phone,  String pinCode)  started,}) {final _that = this;
 switch (_that) {
 case _Started():
-return started(_that.phone,_that.pinCode);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return started(_that.phone,_that.pinCode);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///

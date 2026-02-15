@@ -1,0 +1,16 @@
+query Profile {
+    profile {
+        addressLine
+        birthDate
+        email
+        firstName
+        gender
+        id
+        imageUrl
+        language
+        lastName
+        patronymic
+        phone
+        username
+    }
+}

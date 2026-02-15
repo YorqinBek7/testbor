@@ -5,16 +5,20 @@ import 'package:testbor/core/link/auth_link.dart';
 import 'package:testbor/core/route/router.dart';
 import 'package:testbor/service_locator.dart';
 
-Future<Client> initClient() async {
-  final httpLink = HttpLink('https://api.testbor.com/auth/graphql');
-
-  final authLink = AuthLink(sl<FlutterSecureStorage>(), () async {
+AuthLink _createAuthLink() {
+  return AuthLink(sl<FlutterSecureStorage>(), () async {
     await AppRouter.router.pushReplacement(AppRouter.auth);
   });
+}
 
-  final link = Link.from([authLink, httpLink]);
+Future<Client> initClient() async {
+  final httpLink = HttpLink('https://api.testbor.com/auth/graphql');
+  final link = Link.from([_createAuthLink(), httpLink]);
+  return Client(link: link);
+}
 
-  final client = Client(link: link);
-
-  return client;
+Future<Client> initProfileClient() async {
+  final httpLink = HttpLink('https://api.testbor.com/profile/graphql');
+  final link = Link.from([_createAuthLink(), httpLink]);
+  return Client(link: link);
 }

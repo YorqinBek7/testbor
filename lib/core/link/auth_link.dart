@@ -41,6 +41,7 @@ class AuthLink extends Link {
       if (e.statusCode == 401) {
         await storage.delete(key: 'token');
         await storage.delete(key: 'refresh_token');
+
         onUnAuth();
       }
       rethrow;

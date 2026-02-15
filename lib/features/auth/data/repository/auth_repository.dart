@@ -4,6 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:testbor/features/auth/data/graphql/__generated__/auth.req.gql.dart';
 import 'package:testbor/features/auth/data/graphql/__generated__/login_or_signup.req.gql.dart';
 import 'package:testbor/features/auth/data/graphql/__generated__/otp.req.gql.dart';
+import 'package:testbor/features/auth/domain/model/token_model.dart';
 
 class AuthRepository {
   final Client client;
@@ -45,7 +46,7 @@ class AuthRepository {
     return Right(null);
   }
 
-  Future<Either<String, void>> loginOrSignUp(
+  Future<Either<String, TokenModel>> loginOrSignUp(
     String phone,
     String pinCode,
   ) async {
@@ -68,7 +69,9 @@ class AuthRepository {
     final refreshToken = data.loginOrSignup.refreshToken;
     await storage.write(key: 'token', value: token);
     await storage.write(key: 'refresh_token', value: refreshToken);
+    await storage.delete(key: 'token_access');
+    await storage.delete(key: 'refresh_token_access');
 
-    return Right(null);
+    return Right(TokenModel(refreshToken: refreshToken, token: token));
   }
 }
