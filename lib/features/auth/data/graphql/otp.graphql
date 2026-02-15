@@ -1,0 +1,5 @@
+mutation Otp($phone: String!) {
+    otp {
+        createForPhone(phone: $phone)
+    }
+}

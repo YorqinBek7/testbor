@@ -1,0 +1,596 @@
+"""Indicates a Bean Validation constraint"""
+directive @constraint(min: BigInteger, max: BigInteger, minLength: Int, maxFloat: BigDecimal, format: String, pattern: String, minFloat: BigDecimal, maxLength: Int) on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+
+"""
+Used to specify the role required to execute a given field or operation.
+"""
+directive @rolesAllowed(value: String) on FIELD_DEFINITION
+
+"""Indicates an Input Object is a OneOf Input Object."""
+directive @oneOf on INPUT_OBJECT
+
+"""Exposes a URL that specifies the behaviour of this scalar."""
+directive @specifiedBy(
+  """The URL that specifies the behaviour of this scalar."""
+  url: String!
+) on SCALAR
+
+type Audit {
+  createdById: BigInteger
+
+  """ISO-8601"""
+  createdOn: DateTime!
+  updatedById: BigInteger
+
+  """ISO-8601"""
+  updatedOn: DateTime!
+}
+
+"""Scalar for BigDecimal"""
+scalar BigDecimal
+
+"""Scalar for BigInteger"""
+scalar BigInteger
+
+"""Block list management for admins"""
+type BlockListMutation {
+  blockUser(userId: BigInteger!): Int!
+  unblockUser(userId: BigInteger!): Int!
+}
+
+type ClickMutation {
+  authenticate(webSession: String!): UserResponse!
+}
+
+type CountryDetails {
+  code: String!
+  name: String!
+}
+
+"""Scalar for Date"""
+scalar Date
+
+"""Scalar for DateTime"""
+scalar DateTime
+
+type Entry_Language_String {
+  key: Language
+  value: String
+}
+
+enum Gender {
+  FEMALE
+  MALE
+}
+
+type GoogleMutation {
+  redirectUrl(code: String!, state: String!, scope: String!): UserResponse!
+}
+
+type GoogleQuery {
+  authorize(register: Boolean!): String!
+}
+
+type Jurisdiction {
+  id: BigInteger
+  countryCode: String!
+  name(
+    """Get entry/entries for a certain key/s"""
+    key: [Language]
+  ): [Entry_Language_String]!
+  parentId: BigInteger
+  custom: Boolean!
+  folder: Boolean!
+}
+
+type JurisdictionDetails {
+  id: BigInteger!
+  name: String!
+  folder: Boolean!
+  children: [JurisdictionDetails]
+}
+
+input JurisdictionInput {
+  countryCode: String!
+  name: String!
+  parentId: BigInteger
+}
+
+type JurisdictionsMutation {
+  createCustomSchool(input: SchoolInput!): School!
+  createCustomJurisdiction(input: JurisdictionInput!): Jurisdiction!
+}
+
+type JurisdictionsQuery {
+  listByParentId(parentId: BigInteger!): [JurisdictionDetails]!
+  listSchoolsByJurisdictionId(jurisdictionId: BigInteger!): [SchoolDetails]!
+  listCountries: [CountryDetails]!
+  list(countryCode: String!): [JurisdictionDetails]!
+}
+
+enum Language {
+  AZ
+  EN
+  RU
+  TR
+  UZ
+}
+
+input MultiLangInput {
+  EN: String
+  RU: String
+  TR: String
+  UZ: String
+}
+
+"""Mutation root"""
+type Mutation {
+  verifyPasswordResetByEmail(token: String!): ResetEmailResponse!
+  registerFamilyAccountWithEmail(email: String!, password: String!, input: UserInput): UserResponse!
+  deleteAccount(confirmText: String!): Boolean!
+  updateTenantInfo(input: TenantInfoInput!): Tenant!
+  createPrivacy(input: TenantPrivacyInput!): TenantPrivacy!
+  requestPasswordResetByEmail(email: String!): Void
+  registerWithEmail(email: String!, password: String!, input: UserInput): UserResponse!
+  createPrivacyByUpdate(id: BigInteger!, input: TenantPrivacyInput!): TenantPrivacy!
+  registerTeacherAccountWithPhone(phone: String!, password: String!, input: UserInput): UserResponse!
+  createTermsByUpdate(id: BigInteger!, input: TenantTermsInput!): TenantTerms!
+  resendVerifyPhoneCode(phone: String!): Boolean!
+  updateUserDetails(input: UserInput!): Boolean!
+  verifyPasswordResetByPhone(phone: String!, code: String!): ResetPhoneResponse!
+  becomeATeacher: UserResponse!
+  updateEmail(email: String!): Boolean!
+  completePasswordResetByPhone(password: String!, phone: String!, code: String!): Void
+  verifyPhone(code: String!): UserResponse!
+  verifyEmail(token: String!): UserResponse!
+  requestPasswordResetByPhone(phone: String!): Void
+  addChildUser(input: UserInput!): Boolean!
+
+  """Update user language"""
+  updateLanguage(language: Language!): TokenResponse!
+  updatePassword(currentPassword: String!, newPassword: String!): Boolean!
+  sudoDeleteAccount(userId: BigInteger!): Boolean!
+  completePasswordResetByEmail(password: String!, email: String!, token: String!): Void
+  loginOrSignup(phone: String!, pinCode: String!, userType: String = "user"): UserResponse!
+  createTerms(input: TenantTermsInput!): TenantTerms!
+  registerWithPhone(phone: String!, password: String!, input: UserInput): UserResponse!
+  updatePhone(phone: String!): Boolean!
+  removeChildUser(childId: BigInteger!): Boolean!
+  test: TestMutation
+  permissions: PermissionsMutation
+
+  """Block list management for admins"""
+  blockList: BlockListMutation
+  google: GoogleMutation
+  otp: OtpMutation
+  click: ClickMutation
+  jurisdictions: JurisdictionsMutation
+}
+
+type OtpMutation {
+  create(count: Int = 1): [String]!
+  createForPhone(phone: String!): Boolean!
+}
+
+type OtpQuery {
+  verifyCode(phone: String!, code: String!): Boolean!
+}
+
+type Paged_UserListResponse {
+  items: [UserListResponse]!
+  page: Int!
+  size: Int!
+  sortableFields: [String]!
+  total: Int!
+  totalCount: BigInteger!
+}
+
+enum Permission {
+  CATEGORY_ADD
+  CATEGORY_DELETE
+  CATEGORY_EDIT
+  CATEGORY_VIEW
+  DAILY_CHALLENGE_PREVIEW
+  EXAMPLE_ADD
+  EXAMPLE_DELETE
+  EXAMPLE_EDIT
+  EXAMPLE_GENERATE
+  EXAMPLE_VIEW
+  FEEDBACK_EDIT
+  FEEDBACK_VIEW
+  LESSON_ADD
+  LESSON_APPROVE
+  LESSON_DELETE
+  LESSON_EDIT
+  LESSON_GENERATE
+  LESSON_VIDEO
+  LESSON_VIEW
+  PROMO_CODE_ADD
+  PROMO_CODE_DELETE
+  PROMO_CODE_EDIT
+  PROMO_CODE_VIEW
+  QUESTION_ADD
+  QUESTION_APPROVE
+  QUESTION_DELETE
+  QUESTION_EDIT
+  QUESTION_EXAMPLE
+  QUESTION_GENERATE
+  QUESTION_LESSON
+  QUESTION_REMEMBER
+  QUESTION_SKILLS
+  QUESTION_SUBMIT
+  QUESTION_TOPIC
+  QUESTION_VIDEO_EXPLANATION
+  QUESTION_VIEW
+  QUIZ_ADD
+  QUIZ_DELETE
+  QUIZ_EDIT
+  QUIZ_VIEW
+  REMEMBER_ADD
+  REMEMBER_DELETE
+  REMEMBER_EDIT
+  REMEMBER_VIEW
+  SCHEDULED_CHALLENGE_ADD
+  SCHEDULED_CHALLENGE_DELETE
+  SCHEDULED_CHALLENGE_EDIT
+  SCHEDULED_CHALLENGE_START
+  SCHEDULED_CHALLENGE_STOP
+  SCHEDULED_CHALLENGE_VIEW
+  SOURCE_ADD
+  SOURCE_DELETE
+  SOURCE_EDIT
+  SOURCE_VIEW
+  SUBJECT_ADD
+  SUBJECT_DELETE
+  SUBJECT_EDIT
+  SUBJECT_VIEW
+  SUBSCRIPTION_ADD
+  SUBSCRIPTION_DELETE
+  SUBSCRIPTION_EDIT
+  SUBSCRIPTION_VIEW
+  TOPIC_ADD
+  TOPIC_DELETE
+  TOPIC_EDIT
+  TOPIC_VIEW
+  UNIQUE_QUESTION_DELETE
+  UNIQUE_QUESTION_VIEW
+}
+
+type PermissionsMutation {
+  setPermissions(
+    userId: BigInteger!
+    permissions: [Permission]!
+
+    """ISO-8601"""
+    expireDate: DateTime
+  ): Int!
+  revokeUserPermissions(userId: BigInteger!): Int!
+}
+
+type PermissionsQuery {
+  listUserPermissions: [UserPermissions]!
+}
+
+type PrivacyDetails {
+  content: String
+  downloadLink: String
+
+  """ISO-8601"""
+  effectiveDate: DateTime
+  version: String
+}
+
+"""Query root"""
+type Query {
+  proceedToTenant(tenantId: BigInteger!): UserResponse!
+  getTermsById(id: BigInteger!): TenantTerms!
+  getTenantDetails: Tenant
+  listTermsDetails: [TermsDetails]!
+  logOut: TokenResponse!
+  loginWithPhone(phone: String!, password: String!): UserResponse!
+  getTermsDetailsById(id: BigInteger!): TermsDetails!
+  listPrivacy: [TenantPrivacy]!
+  listPrivacyDetails: [PrivacyDetails]!
+  listTenants: [TenantInfo]!
+
+  """List all users by page number and page size. (Minimum role: TEACHER)"""
+  listUsers(page: Int = 1, size: Int = 20, query: UserQueryInput): Paged_UserListResponse!
+  listTerms: [TenantTerms]!
+  getPrivacyById(id: BigInteger!): TenantPrivacy!
+  getActiveTermsDetails: TermsDetails!
+  existsPhone(phone: String!): Boolean!
+
+  """Check if a username already exists"""
+  checkUsernameExists(username: String!): Boolean!
+  getPrivacyDetailsById(id: BigInteger!): PrivacyDetails!
+  getTenantInfo: TenantInfo!
+
+  """Get anonymous token for unauthorized requests"""
+  anonymousToken(referrerCode: String, language: Language): TokenResponse!
+  generateTransferToken(tenantId: BigInteger): String!
+  authorizeWithTransferToken(token: String!): UserResponse!
+  getTenantInfoByOrigin: TenantInfo!
+  loginWithEmail(email: String!, password: String!): UserResponse!
+  getActivePrivacyDetails: PrivacyDetails!
+  languages: [Language!]!
+
+  """Refresh the token"""
+  refreshToken: TokenResponse!
+  search: SearchQuery
+  test: TestQuery
+  permissions: PermissionsQuery
+  google: GoogleQuery
+  otp: OtpQuery
+  redis: RedisQuery
+  jurisdictions: JurisdictionsQuery
+}
+
+type RedisQuery {
+  """Reindex users to redis"""
+  reindexUsers(userIds: [BigInteger]!): Boolean!
+
+  """Reindex users to redis"""
+  reindexAllUsers: Int!
+
+  """Reindex all jurisdictions to redis"""
+  reindexAllJurisdictions: Int!
+
+  """Reindex all schools to redis"""
+  reindexAllSchools: Int!
+
+  """Reindex jurisdictions to redis"""
+  reindexJurisdictions(jurisdictionIds: [BigInteger]!): Boolean!
+
+  """Reindex schools to redis"""
+  reindexSchools(schoolIds: [BigInteger]!): Boolean!
+}
+
+type ResetEmailResponse {
+  email: String!
+  token: String!
+  valid: Boolean!
+}
+
+type ResetPhoneResponse {
+  code: String!
+  valid: Boolean!
+}
+
+type School {
+  id: BigInteger
+  jurisdictionId: BigInteger!
+  name(
+    """Get entry/entries for a certain key/s"""
+    key: [Language]
+  ): [Entry_Language_String]!
+  custom: Boolean!
+}
+
+type SchoolDetails {
+  id: BigInteger!
+  name: String!
+}
+
+input SchoolInput {
+  jurisdictionId: BigInteger!
+  name: String!
+}
+
+type SearchQuery {
+  searchUsers(pattern: String, size: Int = 20): [UserSearchResponse]
+}
+
+type Tenant {
+  id: BigInteger
+  address(
+    """Get entry/entries for a certain key/s"""
+    key: [Language]
+  ): [Entry_Language_String]!
+  email: String
+  features: [String]
+  ibk: Boolean
+  language: Language!
+  latitude: Float
+  logoUrl: String
+  longitude: Float
+  name: String!
+  phone: String
+  primaryColor: String
+  sponsorLogoUrl: String
+  sponsorName: String
+  tagline: String
+}
+
+type TenantInfo {
+  address: String
+  current: Boolean!
+  email: String
+  features: [String]
+  id: BigInteger!
+  latitude: Float
+  logoUrl: String
+  longitude: Float
+  name: String
+  phone: String
+  primaryColor: String
+  sponsorLogoUrl: String
+  sponsorName: String
+  tagline: String
+}
+
+input TenantInfoInput {
+  address: MultiLangInput!
+  email: String!
+  features: [String]
+  latitude: Float!
+  logoUrl: String
+  longitude: Float!
+  name: String!
+  phone: String!
+  primaryColor: String
+  sponsorLogoUrl: String
+  sponsorName: String
+  tagline: String
+}
+
+type TenantPrivacy {
+  id: BigInteger
+  audit: Audit!
+  content: String!
+  downloadLink: String
+
+  """ISO-8601"""
+  effectiveDate: DateTime!
+  language: Language!
+  tenantId: BigInteger!
+  version: String
+}
+
+input TenantPrivacyInput {
+  content: String!
+
+  """ISO-8601"""
+  effectiveDate: DateTime!
+  language: Language!
+  version: String
+}
+
+type TenantTerms {
+  id: BigInteger
+  audit: Audit!
+  content: String!
+  downloadLink: String
+
+  """ISO-8601"""
+  effectiveDate: DateTime!
+  language: Language!
+  tenantId: BigInteger!
+  version: String
+}
+
+input TenantTermsInput {
+  content: String!
+
+  """ISO-8601"""
+  effectiveDate: DateTime!
+  language: Language!
+  version: String
+}
+
+type TermsDetails {
+  content: String
+  downloadLink: String
+
+  """ISO-8601"""
+  effectiveDate: DateTime
+  version: String
+}
+
+type TestMutation {
+  """Do not use it, for testing only"""
+  prepareToTest: Boolean!
+}
+
+type TestQuery {
+  testQuery(name: String!): String!
+}
+
+type TokenResponse {
+  language: Language!
+  refreshToken: String
+  roles: [String]!
+  token: String!
+}
+
+input UserInput {
+  addressLine: String
+
+  """ISO-8601"""
+  birthDate: Date
+  firstName: String!
+  gender: Gender
+  grade: Int
+  imageUrl: String
+  jurisdictionId: BigInteger
+  lastName: String!
+  parentPhone: String
+  patronymic: String
+  schoolId: BigInteger
+  username: String
+}
+
+type UserListResponse {
+  """ISO-8601"""
+  birthDate: Date
+  email: String
+  firstName: String
+  id: BigInteger
+  imageUrl: String
+  lastName: String
+  phone: String
+  roles: [String]!
+  username: String!
+}
+
+type UserPermissions {
+  details: UserValue
+  permissions: [Permission]!
+  userId: BigInteger!
+}
+
+input UserQueryInput {
+  exact: Boolean
+  role: String
+  search: String
+}
+
+type UserResponse {
+  """ISO-8601"""
+  birthDate: Date
+  email: String
+  firstName: String
+  id: BigInteger
+  imageUrl: String
+  language: Language!
+  lastName: String
+  phone: String
+  refreshToken: String!
+  roles: [String]!
+  token: String!
+  username: String
+}
+
+type UserSearchResponse {
+  """ISO-8601"""
+  birthDate: Date
+  email: String
+  firstname: String
+  id: BigInteger
+  imageUrl: String
+  lastname: String
+  username: String!
+}
+
+type UserValue {
+  addressLine: String
+
+  """ISO-8601"""
+  birthDate: Date
+  email: String
+  firstName: String
+  gender: Gender
+  id: BigInteger!
+  imageUrl: String
+  jurisdictionId: BigInteger
+  language: Language!
+  lastName: String
+  patronymic: String
+  phone: String
+  schoolId: BigInteger
+  username: String!
+  owner: Boolean!
+}
+
+"""Scalar for Void"""
+scalar Void
+
